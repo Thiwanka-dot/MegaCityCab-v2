@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+a{
+    text-decoration: none;
+}
+
 p{
     margin-bottom: 0;
 }
@@ -19,15 +23,14 @@ nav .btn{
 
 nav .btn a{
     color: yellow;
-    text-decoration: none;
-}
-
-nav .btn a:hover{
-    color: #000;
 }
 
 nav .btn:hover{
     border: 2px solid #000;
+}
+
+nav .btn a:hover{
+    color: #000;
 }
 
 section{
@@ -122,6 +125,7 @@ footer .foot-row{
 
 footer ul{
     list-style: none;
+    padding: 0;
 }
 
 footer li a{
@@ -181,18 +185,28 @@ form .btn:hover{
     border: 2px solid yellow;
 }
 
-form .link a{
-    text-decoration: none;
-}
-
-
-
 @media(max-width: 800px){
+    section{
+        padding: 1rem 3rem;
+    }
+
+    .title-con h1{
+        font-size: 2rem;
+    }
+
+    .title-con h3{
+        font-size: 1.2rem;
+    }
+
     .form-divide{
         display: block;
     }
 
     .form-contain{
         padding: 4rem 2rem;
+    }
+
+    .foot-row{
+        grid-template-columns: repeat(1, 1fr);
     }
 }
