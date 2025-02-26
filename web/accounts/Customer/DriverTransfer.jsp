@@ -22,19 +22,19 @@
             <div class="nav-con">
                 <ul>
                     <li>
-                        <a href="../Customer/Customer.html">
+                        <a href="../accounts/Customer/Customer.jsp">
                             <i class="fa fa-home"></i>
                             <span>Home</span>
                         </a>
                     </li>
                     <li>
-                        <a href="../Customer/BookCar.html">
+                        <a href="../accounts/Customer/BookCar.jsp">
                             <i class="fa fa-tasks"></i>
                             <span>Booking Overview</span>
                         </a>
                     </li>
                     <li>
-                        <a href="../Customer/DriverTransfer.html" class="active">
+                        <a href="../accounts/Customer/DriverTransfer.jsp" class="active">
                             <i class="fa fa-tasks"></i>
                             <span>Become a Driver</span>
                         </a>
@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-success" id="confirmDelete">Confirm</button>
+                                    <button type="button" class="btn btn-success" id="confirmTransfer">Confirm</button>
                                 </div>
                             </div>
                         </div>
@@ -81,6 +81,29 @@
             <div class="p-2"></div>
         </main>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById("confirmTransfer").addEventListener("click", function () {
+    fetch("../../Servlets/TransferToDriverServlet", {  // Remove ".java"
+        method: "POST",
+        credentials: "include"
+    })
+    .then(response => response.text())  // Expect plain text or redirect, not JSON
+    .then(data => {
+        if (data.includes("Driver.jsp")) {
+            alert("Account successfully transferred to Driver!");
+            window.location.href = "../../accounts/Driver/Driver.jsp";  // Redirect to Driver Dashboard
+        } else {
+            alert("Account transfer failed. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Something went wrong! Please contact support.");
+    });
+});
+
+    </script>
 </body>
 </html>

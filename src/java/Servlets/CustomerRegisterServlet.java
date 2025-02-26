@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
-public class RegisterServlet extends HttpServlet {
+@WebServlet(name = "CustomerRegisterServlet", urlPatterns = {"/CustomerRegisterServlet"})
+public class CustomerRegisterServlet extends HttpServlet {
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/cab_booking";
     private static final String DB_USER = "root";
@@ -30,23 +30,38 @@ public class RegisterServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword"); 
+
+        // Validate password match
+        if (!password.equals(confirmPassword)) {
+            response.sendRedirect(request.getContextPath() + "/Form/Register.jsp?error=Passwords do not match.");
+            return;
+        }
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
+            // Check if the email already exists
             String checkEmailQuery = "SELECT email FROM customers WHERE email = ?";
             PreparedStatement checkStmt = conn.prepareStatement(checkEmailQuery);
             checkStmt.setString(1, email);
             ResultSet rs = checkStmt.executeQuery();
 
             if (rs.next()) {
-                response.sendRedirect(request.getContextPath() + "/Form/Register.jsp?error=Email already exists");
+                rs.close();
+                checkStmt.close();
+                conn.close();
+                response.sendRedirect(request.getContextPath() + "/Form/Register.jsp?error=Email already exists.");
                 return;
             }
+            rs.close();
+            checkStmt.close();
 
+            // Hash password
             String hashedPassword = hashPassword(password);
 
+            // Insert data
             String query = "INSERT INTO customers (first_name, last_name, email, nic, phone, address, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, firstName);
@@ -58,15 +73,15 @@ public class RegisterServlet extends HttpServlet {
             stmt.setString(7, hashedPassword);
 
             int rowsInserted = stmt.executeUpdate();
+            stmt.close();
+            conn.close();
+
             if (rowsInserted > 0) {
-                response.sendRedirect(request.getContextPath() + "/Form/Login.jsp?message=Registration successful, please login.");
+                response.sendRedirect(request.getContextPath() + "/Form/Login.jsp?message=Registration successful.");
             } else {
                 response.sendRedirect(request.getContextPath() + "/Form/Register.jsp?error=Registration failed.");
             }
 
-            checkStmt.close();
-            stmt.close();
-            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect(request.getContextPath() + "/Form/Register.jsp?error=Database error.");

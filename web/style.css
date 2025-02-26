@@ -3,12 +3,36 @@
     padding: 0;
 }
 
+.container{
+    background: #000;
+}
+
 a{
     text-decoration: none;
 }
 
 p{
     margin-bottom: 0;
+}
+
+.resBtn{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.resBtn .formBtn{
+    background: yellow;
+    border: 1px solid yellow;
+    font-weight: 600;
+    width: 100%;
+    padding: 0.5rem;
+    
+}
+
+.resBtn .btn:hover{
+    background: #000;
+    color: yellow;
 }
 
 nav{
@@ -139,22 +163,20 @@ footer li a{
     background: #000;
     color: yellow;
     padding: 1rem;
-}
-
-.form-con{
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 100%;
     height: 100vh;
 }
 
-.form-con form{
-    border: 2px solid yellow;
-    padding: 1rem;
-    max-width: 500px;
+.form-con{
     width: 100%;
+    margin-top: 3rem;
+    height: fit-content;
+    border: 2px solid yellow;
+    max-width: 500px;
+    padding: 1rem;
 }
+
 
 .form-divide{
     display: grid;
@@ -206,7 +228,7 @@ form .btn:hover{
         padding: 4rem 2rem;
     }
 
-    .foot-row{
+    .footer .foot-row{
         grid-template-columns: repeat(1, 1fr);
     }
 }
