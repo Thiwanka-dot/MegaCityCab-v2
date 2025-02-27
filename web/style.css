@@ -160,21 +160,24 @@ footer li a{
 /*Login*/
 
 .form-contain{
-    background: #000;
+    background: white;
     color: yellow;
-    padding: 1rem;
+    padding: 4rem 2rem;
+    height: 100vh;
     display: flex;
     justify-content: center;
-    height: 100vh;
+    flex-wrap: nowrap;
 }
 
 .form-con{
     width: 100%;
-    margin-top: 3rem;
     height: fit-content;
     border: 2px solid yellow;
     max-width: 500px;
     padding: 1rem;
+    background: #000;
+    
+
 }
 
 
@@ -222,10 +225,6 @@ form .btn:hover{
 
     .form-divide{
         display: block;
-    }
-
-    .form-contain{
-        padding: 4rem 2rem;
     }
 
     .footer .foot-row{

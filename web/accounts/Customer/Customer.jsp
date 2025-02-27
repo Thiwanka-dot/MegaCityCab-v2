@@ -1,3 +1,43 @@
+<%@ page import="java.sql.*" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
+<%
+    // Get session and check if user is logged in
+    HttpSession userSession = request.getSession(false);
+    String userEmail = (userSession != null) ? (String) userSession.getAttribute("email") : null;
+
+    if (userEmail == null) {
+        response.sendRedirect("../../Form/Login.jsp"); // Redirect to login if not logged in
+        return;
+    }
+
+    // Database Connection
+    String dbURL = "jdbc:mysql://localhost:3306/cab_booking";
+    String dbUser = "root";
+    String dbPassword = "Thiwanka122/";
+
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    Connection conn = DriverManager.getConnection(dbURL, dbUser, dbPassword);
+
+    // Fetch user details
+    String query = "SELECT * FROM customers WHERE email = ?";
+    PreparedStatement stmt = conn.prepareStatement(query);
+    stmt.setString(1, userEmail);
+    ResultSet rs = stmt.executeQuery();
+
+    String userId = "", firstName = "", lastName = "", nic = "", phone = "", address = "";
+    
+    if (rs.next()) {
+        userId = rs.getString("id");
+        firstName = rs.getString("first_name");
+        lastName = rs.getString("last_name");
+        nic = rs.getString("nic");
+        phone = rs.getString("phone");
+        address = rs.getString("address");
+    }
+
+    conn.close();
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,38 +89,48 @@
             </div>
         </nav>
         <main>
-            <h1>Welcome Firstname Lastname!</h1>
+            <h1>Welcome <%= firstName %> <%= lastName %></h1>
             <div class="p-2"></div>
             <div class="edit-user p-4">
                 <h4>Profile Details</h4>
-                <form action="" class="row g-3">
+                <form action="<%= request.getContextPath() %>/UpdateCustomerProfileServlet" method="post" class="row g-3">
+                    <% 
+                        String message = (String) session.getAttribute("message");
+                        if (message != null) { 
+                    %>
+                        <div class="alert alert-info"><%= message %></div>
+                    <% 
+                        session.removeAttribute("message");
+                    } 
+                    %>
+
                     <div class="col-md-12">
                         <label for="userId" class="form-label">Customer ID</label>
-                        <input type="text" class="form-control" id="userId" placeholder="ID101" disabled>
+                        <input type="text" class="form-control" name="userId" id="userId" value="<%= userId %>" disabled>
                     </div>
                     <div class="col-md-6">
                         <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
+                        <input type="text" class="form-control" name="firstName" id="firstName" value="<%= firstName %>">
                     </div>
                     <div class="col-md-6">
                         <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
+                        <input type="text" class="form-control" name="lastName" id="lastName" value="<%= lastName %>">
                     </div>
                     <div class="col-md-6">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter email">
+                        <input type="email" class="form-control" name="email" id="email" value="<%= userEmail %>">
                     </div>                    
                     <div class="col-md-6">
                         <label for="nic" class="form-label">NIC</label>
-                        <input type="number" class="form-control" id="nic" placeholder="Enter NIC">
+                        <input type="number" class="form-control" name="nic" id="nic" value="<%= nic %>">
                     </div>
                     <div class="col-md-6">
                         <label for="phone" class="form-label">Phone No</label><br>
-                        <input type="number" class="form-control" id="phone" placeholder="Enter Phone No">
+                        <input type="number" class="form-control" name="phone" id="phone" value="<%= phone %>">
                     </div>  
-                    <div class="col-12">
+                    <div class="col-md-6">
                         <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="Enter address">
+                        <input type="text" class="form-control" name="address" id="address" value="<%= address %>">
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn w-100">Update Profile</button>

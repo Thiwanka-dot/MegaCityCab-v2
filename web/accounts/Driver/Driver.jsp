@@ -1,3 +1,46 @@
+<%@ page import="java.sql.*" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
+<%
+    HttpSession userSession = request.getSession(false);
+    String userEmail = (userSession != null) ? (String) userSession.getAttribute("email") : null;
+
+    if (userEmail == null) {
+        response.sendRedirect("../../Form/Login.jsp"); // Redirect to login if not logged in
+        return;
+    }
+
+    // Database Connection
+    String dbURL = "jdbc:mysql://localhost:3306/cab_booking";
+    String dbUser = "root";
+    String dbPassword = "Thiwanka122/";
+
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    Connection conn = DriverManager.getConnection(dbURL, dbUser, dbPassword);
+
+    String userId = "", firstName = "", lastName = "", phone = "", license = "", vehicleNo = "", vehicleModel = "";
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cab_booking", "root", "Thiwanka122/");
+
+        // Fetch user details
+        String query = "SELECT * FROM drivers WHERE email = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, userEmail);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            userId = rs.getString("id");
+            firstName = rs.getString("first_name");
+            lastName = rs.getString("last_name");
+            phone = rs.getString("phone");
+            license = rs.getString("license_no");
+            vehicleNo = rs.getString("vehicle_no");
+            vehicleModel = rs.getString("vehicle_model");
+        }
+        conn.close();
+%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,34 +92,47 @@
             </div>
         </nav>
         <main>
-            <h1>Welcome Firstname Lastname!</h1>
+            <h1>Welcome <%= firstName %> <%= lastName %></h1>
             <div class="p-2"></div>
             <div class="edit-user p-4">
                 <h4>Profile Details</h4>
-                <form action="" class="row g-3">
+                <form action="<%= request.getContextPath() %>/UpdateDriverProfileServlet" method="post" class="row g-3">
+                    <% 
+                        String message = (String) session.getAttribute("message");
+                        if (message != null) { 
+                    %>
+                        <div class="alert alert-info"><%= message %></div>
+                    <% 
+                        session.removeAttribute("message");
+                    } 
+                    %>
                     <div class="col-md-12">
                         <label for="userId" class="form-label">Driver ID</label>
-                        <input type="text" class="form-control" id="userId" placeholder="ID101" disabled>
+                        <input type="text" class="form-control" name="userId" id="userId" value="<%= userId %>" disabled>
                     </div>
                     <div class="col-md-6">
                         <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
+                        <input type="text" class="form-control" name="firstName" id="firstName" value="<%= firstName %>">
                     </div>
                     <div class="col-md-6">
                         <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
+                        <input type="text" class="form-control" name="lastName" id="lastName" value="<%= lastName %>">
                     </div>
                     <div class="col-md-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter email">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="number" class="form-control" name="phone" id="phone" value="<%= phone %>">
                     </div>
                     <div class="col-md-6">
-                        <label for="nic" class="form-label">NIC</label>
-                        <input type="number" class="form-control" id="nic" placeholder="Enter NIC">
+                        <label for="license" class="form-label">License No</label>
+                        <input type="text" class="form-control" name="license" id="license" value="<%= license %>">
                     </div>
-                    <div class="col-12">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="Enter address">
+                    <div class="col-md-6">
+                        <label for="vehicleNo" class="form-label">Car Number Plate</label>
+                        <input type="text" class="form-control" name="vehicleNo" id="vehicleNo" value="<%= vehicleNo %>">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="vehicleModel" class="form-label">Car Model</label>
+                        <input type="text" class="form-control" name="vehicleModel" id="vehicleModel" value="<%= vehicleModel %>">
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-warning w-100">Update Profile</button>

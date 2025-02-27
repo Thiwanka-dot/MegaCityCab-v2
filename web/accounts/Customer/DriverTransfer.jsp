@@ -22,19 +22,19 @@
             <div class="nav-con">
                 <ul>
                     <li>
-                        <a href="../accounts/Customer/Customer.jsp">
+                        <a href="../Customer/Customer.jsp">
                             <i class="fa fa-home"></i>
                             <span>Home</span>
                         </a>
                     </li>
                     <li>
-                        <a href="../accounts/Customer/BookCar.jsp">
+                        <a href="../Customer/BookCar.jsp">
                             <i class="fa fa-tasks"></i>
                             <span>Booking Overview</span>
                         </a>
                     </li>
                     <li>
-                        <a href="../accounts/Customer/DriverTransfer.jsp" class="active">
+                        <a href="../Customer/DriverTransfer.jsp" class="active">
                             <i class="fa fa-tasks"></i>
                             <span>Become a Driver</span>
                         </a>
