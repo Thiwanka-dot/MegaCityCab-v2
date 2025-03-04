@@ -1,3 +1,5 @@
+<%@page import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.ResultSet" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,20 +20,15 @@
             <hr>
             <div class="nav-con">
                 <ul>
-                    <li><a href="../Admin/Admin.html"><i class="fa fa-home"></i> <span>Home</span></a></li>
-                    <li><a href="../Admin/CabBooking.html"><i class="fa fa-tasks"></i> <span>Cab Bookings</span></a></li>
-                    <li><a href="../Admin/CustomerDet.html" class="active"><i class="fa fa-tasks"></i> <span>Customer Details</span></a></li>
-                    <li><a href="../Admin/DriverDet.html"><i class="fa fa-tasks"></i> <span>Driver Details</span></a></li>
-                    <li><a href="../Admin/Discounts.html"><i class="fa fa-tasks"></i> <span>Discounts</span></a></li>
-                    <li>
-                        <a href="../Admin/DistancePrice.html">
-                            <i class="fa fa-tasks"></i>
-                            <span>Distance Pricing</span>
-                        </a>
-                    </li>
+                    <li><a href="../Admin/Admin.jsp"><i class="fa fa-home"></i> <span>Home</span></a></li>
+                    <li><a href="../Admin/CabBooking.jsp"><i class="fa fa-tasks"></i> <span>Cab Bookings</span></a></li>
+                    <li><a href="../Admin/CustomerDet.jsp" class="active"><i class="fa fa-tasks"></i> <span>Customer Details</span></a></li>
+                    <li><a href="../Admin/DriverDet.jsp"><i class="fa fa-tasks"></i> <span>Driver Details</span></a></li>
+                    <li><a href="../Admin/DistancePrice.jsp"><i class="fa fa-tasks"></i><span>Distance Pricing</span></a></li>
+                    <li><a href="../Admin/Discounts.jsp"><i class="fa fa-tasks"></i><span>Discounts</span></a></li>
                 </ul>
                 <div class="logout-btn">
-                    <a href="../../index.html"><i class="fa fa-sign-out"></i> <span>Logout</span></a>
+                    <a href="../../index.jsp"><i class="fa fa-sign-out"></i> <span>Logout</span></a>
                 </div>
             </div>
         </nav>
@@ -40,30 +37,67 @@
             <div class="p-2"></div>
             <div class="booking-list p-4">
                 <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Start Loc</th>
-                        <th scope="col">End Loc</th>
-                        <th scope="col">Distance per hour</th>
-                        <th scope="col">Payment</th>
-                        <th scope="col">Status</th>
-                      </tr>
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>NIC</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Actions</th>
+                        </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Colombo</td>
-                        <td>Kandy</td>
-                        <td>50 km</td>
-                        <td>5000 LKR</td>
-                        <td class="btn">
-                            <button type="button" class="btn btn-primary edit-btn" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
-                            <button type="button" class="btn btn-danger">Cancel</button>
-                        </td>
-                      </tr>
+                    <%
+                        // Database connection parameters
+                        String DB_URL = "jdbc:mysql://localhost:3306/cab_booking";
+                        String DB_USER = "root";
+                        String DB_PASSWORD = "Thiwanka122/";
+
+                        // Load MySQL Driver
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+
+                        // Correct Query for Customer Details
+                        String query = "SELECT id, first_name, last_name, email, nic, phone, address FROM customers";
+                        PreparedStatement stmt = conn.prepareStatement(query);
+                        ResultSet rs = stmt.executeQuery();
+
+                        while (rs.next()) {
+                    %>
+                        <tr>
+                            <td><%= rs.getInt("id") %></td>
+                            <td><%= rs.getString("first_name") %></td>
+                            <td><%= rs.getString("last_name") %></td>
+                            <td><%= rs.getString("email") %></td>
+                            <td><%= rs.getString("nic") %></td>
+                            <td><%= rs.getString("phone") %></td>
+                            <td><%= rs.getString("address") %></td>
+                            <td class="actionBtn">
+                                <button type="button" class="btn btn-primary edit-btn" data-bs-toggle="modal" data-bs-target="#editModal"
+                                        data-id="<%= rs.getInt("id") %>"
+                                        data-firstname="<%= rs.getString("first_name") %>"
+                                        data-lastname="<%= rs.getString("last_name") %>"
+                                        data-email="<%= rs.getString("email") %>"
+                                        data-nic="<%= rs.getString("nic") %>"
+                                        data-phone="<%= rs.getString("phone") %>"
+                                        data-address="<%= rs.getString("address") %>">
+                                    Edit
+                                </button>
+                                <form action="<%= request.getContextPath() %>/DeleteCustomerServlet" method="post">
+                                    <input type="hidden" name="customerID" value="<%= rs.getInt("id") %>">
+                                    <button type="submit" class="btn btn-danger">Cancel</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <%
+                        }
+                        rs.close();
+                        stmt.close();
+                        conn.close();
+                    %>
                     </tbody>
                 </table>
             </div>
@@ -79,26 +113,31 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editForm">
+                    <form id="editForm" action="<%= request.getContextPath() %>/AdminCustomerUpdateServlet" method="post">
+                        <input type="hidden" id="customerId" name="customerId">
                         <div class="mb-3">
-                            <label for="customerName" class="form-label">Customer Name</label>
-                            <input type="text" class="form-control" id="customerName">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" required>
                         </div>
                         <div class="mb-3">
-                            <label for="startLocation" class="form-label">Start Location</label>
-                            <input type="text" class="form-control" id="startLocation">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" required>
                         </div>
                         <div class="mb-3">
-                            <label for="endLocation" class="form-label">End Location</label>
-                            <input type="text" class="form-control" id="endLocation">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="distance" class="form-label">Distance per hour</label>
-                            <input type="text" class="form-control" id="distance">
+                            <label for="nic" class="form-label">NIC</label>
+                            <input type="number" class="form-control" id="nic" name="nic" required>
                         </div>
                         <div class="mb-3">
-                            <label for="payment" class="form-label">Payment</label>
-                            <input type="text" class="form-control" id="payment">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="number" class="form-control" id="phone" name="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address" name="address" required>
                         </div>
                         <button type="submit" class="btn btn-success w-100">Save Changes</button>
                     </form>
@@ -106,8 +145,23 @@
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".edit-btn").forEach(button => {
+                button.addEventListener("click", function () {
+                    let row = this.closest("tr");
+                    document.getElementById("customerId").value = row.cells[0].textContent;
+                    document.getElementById("firstName").value = row.cells[1].textContent;
+                    document.getElementById("lastName").value = row.cells[2].textContent;
+                    document.getElementById("email").value = row.cells[3].textContent;
+                    document.getElementById("nic").value = row.cells[4].textContent;
+                    document.getElementById("phone").value = row.cells[5].textContent;
+                    document.getElementById("address").value = row.cells[6].textContent;
+                });
+            });
+        });
+    </script>
     
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

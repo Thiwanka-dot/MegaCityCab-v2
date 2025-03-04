@@ -19,6 +19,18 @@ body{
     width: 100vw;
 }
 
+.avalBtn{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 10px;
+}
+
+.driverTitle{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+
 nav {
     background: #000;
     height: 100vh;
@@ -136,7 +148,8 @@ nav:hover {
 .booking-list,
 .bookOverview,
 .adminReport,
-.manageCon {
+.manageCon,
+.aval{
     border: 2px solid yellow;
     width: 100%;
 }
@@ -229,6 +242,12 @@ nav:hover {
 .manageList button{
     padding: 1rem;
     font-weight: 600;
+}
+
+.actionBtn{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
 }
 
 @media (max-width:800px){

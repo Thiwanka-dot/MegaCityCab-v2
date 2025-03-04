@@ -22,19 +22,19 @@
             <div class="nav-con">
                 <ul>
                     <li>
-                        <a href="../Driver/Driver.html">
+                        <a href="../Driver/Driver.jsp">
                             <i class="fa fa-home"></i>
                             <span>Home</span>
                         </a>
                     </li>
                     <li>
-                        <a href="../Driver/Bookings.html" class="active">
+                        <a href="../Driver/Bookings.jsp" class="active">
                             <i class="fa fa-tasks"></i>
                             <span>Booking Overview</span>
                         </a>
                     </li>
                     <li>
-                        <a href="../Driver/VehicleDetails.html">
+                        <a href="../Driver/CompletedBookings.jsp">
                             <i class="fa fa-tasks"></i>
                             <span>Vehicle Details</span>
                         </a>

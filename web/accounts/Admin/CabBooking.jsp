@@ -21,48 +21,15 @@
             <hr>
             <div class="nav-con">
                 <ul>
-                    <li>
-                        <a href="../Admin/Admin.html">
-                            <i class="fa fa-home"></i>
-                            <span>Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../Admin/CabBooking.html" class="active">
-                            <i class="fa fa-tasks"></i>
-                            <span>Cab Bookings</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../Admin/CustomerDet.html">
-                            <i class="fa fa-tasks"></i>
-                            <span>Customer Details</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../Admin/DriverDet.html">
-                            <i class="fa fa-tasks"></i>
-                            <span>Driver Details</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../Admin/Discounts.html">
-                            <i class="fa fa-tasks"></i>
-                            <span>Discounts</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../Admin/DistancePrice.html">
-                            <i class="fa fa-tasks"></i>
-                            <span>Distance Pricing</span>
-                        </a>
-                    </li>
+                    <li><a href="../Admin/Admin.jsp"><i class="fa fa-home"></i><span>Home</span></a></li>
+                    <li><a href="../Admin/CabBooking.jsp" class="active"><i class="fa fa-tasks"></i><span>Cab Bookings</span></a></li>
+                    <li><a href="../Admin/CustomerDet.jsp"><i class="fa fa-tasks"></i><span>Customer Details</span></a></li>
+                    <li><a href="../Admin/DriverDet.jsp"><i class="fa fa-tasks"></i><span>Driver Details</span></a></li>
+                    <li><a href="../Admin/DistancePrice.jsp"><i class="fa fa-tasks"></i><span>Distance Pricing</span></a></li>
+                    <li><a href="../Admin/DistancePrice.jsp"><i class="fa fa-tasks"></i><span>Distance Pricing</span></a></li>
+                    <li><a href="../Admin/Discounts.jsp"><i class="fa fa-tasks"></i><span>Discounts</span></a></li>                    
                 </ul>
-                <div class="logout-btn">
-                    <a href="../../index.html">
-                        <i class="fa fa-sign-out"></i>
-                        <span>Logout</span>
-                    </a>
+                <div class="logout-btn"><a href="../../index.jsp"><i class="fa fa-sign-out"></i><span>Logout</span></a>
                 </div>
             </div>
         </nav>

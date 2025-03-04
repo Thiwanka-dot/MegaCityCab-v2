@@ -5,7 +5,7 @@
     String userEmail = (userSession != null) ? (String) userSession.getAttribute("email") : null;
 
     if (userEmail == null) {
-        response.sendRedirect("../../Form/Login.jsp"); // Redirect to login if not logged in
+        response.sendRedirect("../../Form/Login.jsp");
         return;
     }
 
@@ -17,7 +17,7 @@
     Class.forName("com.mysql.cj.jdbc.Driver");
     Connection conn = DriverManager.getConnection(dbURL, dbUser, dbPassword);
 
-    String userId = "", firstName = "", lastName = "", phone = "", license = "", vehicleNo = "", vehicleModel = "";
+    String userId = "", firstName = "", lastName = "", phone = "", license = "", vehicleNo = "", vehicleModel = "", availability = "";
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cab_booking", "root", "Thiwanka122/");
@@ -36,10 +36,10 @@
             license = rs.getString("license_no");
             vehicleNo = rs.getString("vehicle_no");
             vehicleModel = rs.getString("vehicle_model");
+            availability = rs.getString("availability");
         }
         conn.close();
 %>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,35 +64,28 @@
             <hr>          
             <div class="nav-con">
                 <ul>
-                    <li>
-                        <a href="../Driver/Driver.html" class="active">
-                            <i class="fa fa-home"></i>
-                            <span>Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../Driver/Bookings.html">
-                            <i class="fa fa-tasks"></i>
-                            <span>Booking Overview</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../Driver/VehicleDetails.html">
-                            <i class="fa fa-tasks"></i>
-                            <span>Vehicle Details</span>
-                        </a>
-                    </li>
+                    <li><a href="../Driver/Driver.jsp" class="active"><i class="fa fa-home"></i><span>Home</span></a></li>
+                    <li><a href="../Driver/Bookings.jsp"><i class="fa fa-tasks"></i><span>Booking Overview</span></a></li>
+                    <li><a href="../Driver/CompletedBookings.jsp"><i class="fa fa-tasks"></i><span>Vehicle Details</span></a></li>
                 </ul>
                 <div class="logout-btn">
-                    <a href="../../index.html">
-                        <i class="fa fa-sign-out"></i>
-                        <span>Logout</span>
-                    </a>
+                    <a href="../../index.html"><i class="fa fa-sign-out"></i><span>Logout</span></a>
                 </div>
             </div>
         </nav>
         <main>
-            <h1>Welcome <%= firstName %> <%= lastName %></h1>
+            <div class="driverTitle">
+                <h1>Welcome <%= firstName %> <%= lastName %></h1>
+                <button class="btn btn-primary">Default</button>
+            </div>            
+            <div class="p-2"></div>
+            <div class="p-4 aval">
+                <p>Are you available for providing transportation?</p>
+                <div class="avalBtn">
+                    <button class="btn btn-success w-100 col-md-6" onclick="updateAvailability('Available')">Available</button>
+                    <button class="btn btn-danger w-100 col-md-6" onclick="updateAvailability('Unavailable')">Unavailable</button>
+                 </div>
+            </div>
             <div class="p-2"></div>
             <div class="edit-user p-4">
                 <h4>Profile Details</h4>
@@ -167,6 +160,17 @@
             <div class="p-2"></div>
         </main>
     </div>
+    <script>
+        function updateAvailability(status) {
+            fetch('<%= request.getContextPath() %>/UpdateAvailabilityServlet', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'availability=' + encodeURIComponent(status)
+            })
+            .then(response => window.location.reload())
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
