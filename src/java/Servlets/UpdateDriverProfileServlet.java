@@ -2,7 +2,6 @@ package Servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +23,6 @@ public class UpdateDriverProfileServlet extends HttpServlet {
             return;
         }
 
-        // Retrieve form data
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String phone = request.getParameter("phone");
@@ -33,16 +31,11 @@ public class UpdateDriverProfileServlet extends HttpServlet {
         String vehicleModel = request.getParameter("vehicleModel");
         String email = (String) session.getAttribute("email");
 
-        String dbURL = "jdbc:mysql://localhost:3306/cab_booking";
-        String dbUser = "root";
-        String dbPassword = "Thiwanka122/";        
+        Connection conn = null;       
 
         try {
-            // Get database connection from DBConnection utility class
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(dbURL, dbUser, dbPassword);
+            conn = DBConnection.getConnection();
 
-            // Update query
             String updateQuery = "UPDATE drivers SET first_name=?, last_name=?, phone=?, license_no=?, vehicle_no=?, vehicle_model=? WHERE email=?";
             PreparedStatement pstmt = conn.prepareStatement(updateQuery);
             pstmt.setString(1, firstName);
@@ -67,7 +60,6 @@ public class UpdateDriverProfileServlet extends HttpServlet {
             session.setAttribute("message", "An error occurred while updating the profile.");
         }
 
-        // Redirect back to dashboard
         response.sendRedirect("accounts/Driver/Driver.jsp");
     }
 }

@@ -2,7 +2,6 @@ package Servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.security.MessageDigest;
@@ -16,9 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "CustomerRegisterServlet", urlPatterns = {"/CustomerRegisterServlet"})
 public class CustomerRegisterServlet extends HttpServlet {
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/cab_booking";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "Thiwanka122/";
+    Connection conn = null;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,17 +29,14 @@ public class CustomerRegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword"); 
 
-        // Validate password match
         if (!password.equals(confirmPassword)) {
             response.sendRedirect(request.getContextPath() + "/Form/Register.jsp?error=Passwords do not match.");
             return;
         }
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            conn = DBConnection.getConnection();
 
-            // Check if the email already exists
             String checkEmailQuery = "SELECT email FROM customers WHERE email = ?";
             PreparedStatement checkStmt = conn.prepareStatement(checkEmailQuery);
             checkStmt.setString(1, email);
@@ -58,10 +52,8 @@ public class CustomerRegisterServlet extends HttpServlet {
             rs.close();
             checkStmt.close();
 
-            // Hash password
             String hashedPassword = hashPassword(password);
 
-            // Insert data
             String query = "INSERT INTO customers (first_name, last_name, email, nic, phone, address, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, firstName);

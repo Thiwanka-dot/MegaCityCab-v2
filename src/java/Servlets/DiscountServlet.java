@@ -26,7 +26,6 @@ public class DiscountServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        // Validation
         if (discountCode == null || discountCode.trim().isEmpty() || discountAmt == null || discountAmt.trim().isEmpty()) {
             session.setAttribute("message", "Invalid input. Please fill in all fields.");
             response.sendRedirect(request.getContextPath() + "/accounts/Admin/Discounts.jsp");
@@ -40,7 +39,7 @@ public class DiscountServlet extends HttpServlet {
                  PreparedStatement stmt = conn.prepareStatement("INSERT INTO discounts (discountCode, discountPrice) VALUES (?, ?)")) {
                 
                 stmt.setString(1, discountCode);
-                stmt.setInt(2, Integer.parseInt(discountAmt)); // Ensure valid integer
+                stmt.setInt(2, Integer.parseInt(discountAmt));
                 
                 int rowsInserted = stmt.executeUpdate();
                 if (rowsInserted > 0) {

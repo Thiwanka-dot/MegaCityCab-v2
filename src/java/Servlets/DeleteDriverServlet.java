@@ -2,7 +2,6 @@ package Servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,8 +24,8 @@ public class DeleteDriverServlet extends HttpServlet {
         int driverID = Integer.parseInt(driverIDParam);
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cab_booking", "root", "Thiwanka122/");
+            Connection conn = null;
+            conn = DBConnection.getConnection();
             String query = "DELETE FROM drivers WHERE id=?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, driverID);

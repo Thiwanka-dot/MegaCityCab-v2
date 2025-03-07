@@ -9,26 +9,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "DeleteCustomerServlet", urlPatterns = {"/DeleteCustomerServlet"})
-public class DeleteCustomerServlet extends HttpServlet {
+@WebServlet(name = "DeleteBookingServlet2", urlPatterns = {"/DeleteBookingServlet2"})
+public class DeleteBookingServlet2 extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String customerIDParam = request.getParameter("customerID");
+        String bookingIDParam = request.getParameter("bookingID");
 
-        if (customerIDParam == null || customerIDParam.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/accounts/Admin/CustomerDet.jsp?error=MissingCustomerID");
+        if (bookingIDParam == null || bookingIDParam.isEmpty()) {
+            response.sendRedirect(request.getContextPath() + "/accounts/Admin/CabBooking.jsp?error=MissingBookingID");
             return;
         }
 
-        int customerID = Integer.parseInt(customerIDParam);
+        int bookingID = Integer.parseInt(bookingIDParam);
 
         try {
             Connection conn = null;
             conn = DBConnection.getConnection();
-            String query = "DELETE FROM customers WHERE id=?";
+            String query = "DELETE FROM booking WHERE id=?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, customerID);
+            stmt.setInt(1, bookingID);
             stmt.executeUpdate();
 
             stmt.close();
@@ -37,6 +37,6 @@ public class DeleteCustomerServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        response.sendRedirect(request.getContextPath() + "/accounts/Admin/CustomerDet.jsp");
+        response.sendRedirect(request.getContextPath() + "/accounts/Admin/CabBooking.jsp");
     }
 }

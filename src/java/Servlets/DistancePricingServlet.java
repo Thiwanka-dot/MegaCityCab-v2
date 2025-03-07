@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,7 +29,6 @@ public class DistancePricingServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        // Validation
         if (startLoc == null || startLoc.trim().isEmpty() ||
                 endLoc == null || endLoc.trim().isEmpty() ||
                 distanceNo == null || distanceNo.trim().isEmpty() ||

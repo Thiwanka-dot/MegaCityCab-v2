@@ -2,8 +2,6 @@ package Servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,13 +25,10 @@ public class AdminDistancePriceUpdateServlet extends HttpServlet {
         String timeTaken = request.getParameter("timeTakenEdit");
         String totalPrice = request.getParameter("disPriceEdit");
 
-        String dbURL = "jdbc:mysql://localhost:3306/cab_booking";
-        String dbUser = "root";
-        String dbPassword = "Thiwanka122/";
+        Connection conn = null;
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(dbURL, dbUser, dbPassword);
+            conn = DBConnection.getConnection();
 
             String updateQuery = "UPDATE distance SET distance_amt=?, time_taken=?, total_price=? WHERE startLocation=? AND endLocation=?";
             java.sql.PreparedStatement pstmt = conn.prepareStatement(updateQuery);

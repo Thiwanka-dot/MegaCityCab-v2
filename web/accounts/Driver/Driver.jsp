@@ -1,5 +1,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
+<%@page import="Servlets.DBConnection"%>
+
 <%
     HttpSession userSession = request.getSession(false);
     String userEmail = (userSession != null) ? (String) userSession.getAttribute("email") : null;
@@ -9,36 +11,27 @@
         return;
     }
 
-    // Database Connection
-    String dbURL = "jdbc:mysql://localhost:3306/cab_booking";
-    String dbUser = "root";
-    String dbPassword = "Thiwanka122/";
-
-    Class.forName("com.mysql.cj.jdbc.Driver");
-    Connection conn = DriverManager.getConnection(dbURL, dbUser, dbPassword);
+    Connection conn = null;
+    conn = DBConnection.getConnection();
 
     String userId = "", firstName = "", lastName = "", phone = "", license = "", vehicleNo = "", vehicleModel = "", availability = "";
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cab_booking", "root", "Thiwanka122/");
+    String query = "SELECT * FROM drivers WHERE email = ?";
+    PreparedStatement stmt = conn.prepareStatement(query);
+    stmt.setString(1, userEmail);
+    ResultSet rs = stmt.executeQuery();
 
-        // Fetch user details
-        String query = "SELECT * FROM drivers WHERE email = ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, userEmail);
-        ResultSet rs = stmt.executeQuery();
-
-        if (rs.next()) {
-            userId = rs.getString("id");
-            firstName = rs.getString("first_name");
-            lastName = rs.getString("last_name");
-            phone = rs.getString("phone");
-            license = rs.getString("license_no");
-            vehicleNo = rs.getString("vehicle_no");
-            vehicleModel = rs.getString("vehicle_model");
-            availability = rs.getString("availability");
-        }
-        conn.close();
+    if (rs.next()) {
+        userId = rs.getString("id");
+        firstName = rs.getString("first_name");
+        lastName = rs.getString("last_name");
+        phone = rs.getString("phone");
+        license = rs.getString("license_no");
+        vehicleNo = rs.getString("vehicle_no");
+        vehicleModel = rs.getString("vehicle_model");
+        availability = rs.getString("availability");
+    }
+    conn.close();
 %>
 
 <!DOCTYPE html>
@@ -66,18 +59,14 @@
                 <ul>
                     <li><a href="../Driver/Driver.jsp" class="active"><i class="fa fa-home"></i><span>Home</span></a></li>
                     <li><a href="../Driver/Bookings.jsp"><i class="fa fa-tasks"></i><span>Booking Overview</span></a></li>
-                    <li><a href="../Driver/CompletedBookings.jsp"><i class="fa fa-tasks"></i><span>Vehicle Details</span></a></li>
                 </ul>
                 <div class="logout-btn">
-                    <a href="../../index.html"><i class="fa fa-sign-out"></i><span>Logout</span></a>
+                    <a href="<%= request.getContextPath() %>/LogoutServlet"><i class="fa fa-sign-out"></i><span>Logout</span></a>
                 </div>
             </div>
         </nav>
         <main>
-            <div class="driverTitle">
-                <h1>Welcome <%= firstName %> <%= lastName %></h1>
-                <button class="btn btn-primary">Default</button>
-            </div>            
+                <h1>Welcome <%= firstName %> <%= lastName %>!</h1>
             <div class="p-2"></div>
             <div class="p-4 aval">
                 <p>Are you available for providing transportation?</p>
@@ -152,7 +141,10 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-danger" id="confirmDelete">Confirm Deletion</button>
+                            <form action="<%= request.getContextPath() %>/DeleteDriverServlet2" method="post">
+                                <input type="hidden" name="driverID" value="<%= userId %>">
+                                <button type="submit" class="btn btn-danger">Confirm Deletion</button>
+                            </form>
                         </div>
                     </div>
                 </div>

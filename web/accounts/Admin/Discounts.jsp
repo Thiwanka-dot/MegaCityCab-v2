@@ -1,3 +1,4 @@
+<%@page import="Servlets.DBConnection"%>
 <%@page import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.ResultSet" %>
 
 <!DOCTYPE html>
@@ -31,7 +32,7 @@
                     <li><a href="../Admin/Discounts.jsp" class="active"><i class="fa fa-tasks"></i><span>Discounts</span></a></li>                    
                 </ul>
                 <div class="logout-btn">
-                    <a href="../../index.jsp"><i class="fa fa-sign-out"></i><span>Logout</span></a>
+                    <a href="<%= request.getContextPath() %>/LogoutServlet"><i class="fa fa-sign-out"></i><span>Logout</span></a>
                 </div>
             </div>
         </nav>
@@ -77,14 +78,9 @@
                     </thead>
                     <tbody>
                     <%
-                        // Database connection parameters
-                        String DB_URL = "jdbc:mysql://localhost:3306/cab_booking";
-                        String DB_USER = "root";
-                        String DB_PASSWORD = "Thiwanka122/";
-
-                        // Load MySQL Driver
-                        Class.forName("com.mysql.cj.jdbc.Driver");
-                        Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                        Connection conn = null;
+                        conn = DBConnection.getConnection();
+                        
                         String query = "SELECT id, discountCode, discountPrice FROM discounts";
                         java.sql.Statement stmt = conn.createStatement();
                         ResultSet rs = stmt.executeQuery(query);

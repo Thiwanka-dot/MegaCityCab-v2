@@ -7,6 +7,12 @@
     background: #000;
 }
 
+.help{
+    padding: 1rem;
+    border: 2px solid yellow;
+    border-radius: 50%;
+}
+
 a{
     text-decoration: none;
 }
@@ -79,6 +85,7 @@ section{
     border: 2px solid yellow;
     margin-top: 1rem;
     font-weight: 600;
+    color: white;
 }
 
 .main-con .btn:hover,
@@ -109,6 +116,10 @@ section{
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+}
+
+sectio .btn a{
+    color: white;
 }
 
 .title-con h1{

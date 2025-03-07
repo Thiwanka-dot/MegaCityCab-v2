@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "DeleteCustomerServlet", urlPatterns = {"/DeleteCustomerServlet"})
-public class DeleteCustomerServlet extends HttpServlet {
+@WebServlet(name = "DeleteCustomerServlet2", urlPatterns = {"/DeleteCustomerServlet2"})
+public class DeleteCustomerServlet2 extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String customerIDParam = request.getParameter("customerID");
 
         if (customerIDParam == null || customerIDParam.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/accounts/Admin/CustomerDet.jsp?error=MissingCustomerID");
+            response.sendRedirect(request.getContextPath() + "/accounts/Customer/Customer.jsp?error=MissingCustomerID");
             return;
         }
 
@@ -37,6 +37,6 @@ public class DeleteCustomerServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        response.sendRedirect(request.getContextPath() + "/accounts/Admin/CustomerDet.jsp");
+        response.sendRedirect(request.getContextPath() + "/index.html");
     }
 }

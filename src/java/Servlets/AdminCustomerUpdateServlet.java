@@ -2,7 +2,6 @@ package Servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,13 +26,10 @@ private static final long serialVersionUID = 1L;
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
 
-        String dbURL = "jdbc:mysql://localhost:3306/cab_booking";
-        String dbUser = "root";
-        String dbPassword = "Thiwanka122/";
+        Connection conn = null;
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(dbURL, dbUser, dbPassword);
+            conn = DBConnection.getConnection();
 
             String updateQuery = "UPDATE customers SET first_name=?, last_name=?, nic=?, phone=?, address=? WHERE email=?";
             java.sql.PreparedStatement pstmt = conn.prepareStatement(updateQuery);
@@ -58,7 +54,6 @@ private static final long serialVersionUID = 1L;
             session.setAttribute("message", "An error occurred while updating the profile.");
         }
 
-        // Redirect back to dashboard
         response.sendRedirect("accounts/Admin/CustomerDet.jsp");
     }
 }

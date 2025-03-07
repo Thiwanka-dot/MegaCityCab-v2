@@ -35,7 +35,7 @@
                     <h1 style="font-family: Montserrat, serif;">Mega City Cab</h1>
                     <h3>Welcome to our Cab Booking service!</h3>
                     <p><em>Feel free to book a cab to arrive to your location</em></p>
-                    <button class="btn" type="button">Make a Booking</button>
+                    <button class="btn" type="button"><a href="./Form/Login.jsp">Make a Booking</a></button>
                 </div>
             </div>
         </div>
@@ -78,12 +78,35 @@
                 </div>
             </div>
     </section>
+    <button type="button" class="help position-fixed bottom-0 end-0 m-3" data-bs-toggle="modal" data-bs-target="#helpModal">
+    ?
+    </button>
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpModalLabel">User Guidelines</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li>Click "Make a Booking" to book a ride.</li>
+                        <li>Use the navigation bar to explore services.</li>
+                        <li>Contact us for any queries.</li>
+                        <li>Ensure correct details before confirming a booking.</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer class="pt-2 pb-3 text-center">
         <div class="foot-row">
             <div class="foot-con">
                 <h3>Mega City Cab</h3>
                 <p>Thank you for visiting our website!<br>Make sure to book a ride for your trips!</p>
-                <button class="btn" type="button">Make a Booking</button>
             </div>
             <div class="foot-con">
                 <h3>Quick Links</h3>

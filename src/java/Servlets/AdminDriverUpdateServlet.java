@@ -20,8 +20,7 @@ public class AdminDriverUpdateServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        
-        // Retrieve form data
+
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
@@ -30,19 +29,12 @@ public class AdminDriverUpdateServlet extends HttpServlet {
         String vehicleNo = request.getParameter("vehicleNo");
         String vehicleModel = request.getParameter("vehicleModel");
 
-        // Database connection details
-        String dbURL = "jdbc:mysql://localhost:3306/cab_booking";
-        String dbUser = "root";
-        String dbPassword = "Thiwanka122/";
-
         Connection conn = null;
         PreparedStatement pstmt = null;
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(dbURL, dbUser, dbPassword);
+            conn = DBConnection.getConnection();
 
-            // Corrected SQL query with proper column names and parameters
             String updateQuery = "UPDATE drivers SET first_name=?, last_name=?, phone=?, license_no=?, vehicle_no=?, vehicle_model=? WHERE email=?";
             pstmt = conn.prepareStatement(updateQuery);
             pstmt.setString(1, firstName);
@@ -73,7 +65,6 @@ public class AdminDriverUpdateServlet extends HttpServlet {
             }
         }
 
-        // Redirect back to dashboard
         response.sendRedirect("accounts/Admin/DriverDet.jsp");
     }
 }

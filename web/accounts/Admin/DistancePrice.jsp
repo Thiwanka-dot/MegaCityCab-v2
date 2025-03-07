@@ -1,3 +1,4 @@
+<%@page import="Servlets.DBConnection"%>
 <%@page import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.ResultSet" %>
 
 <!DOCTYPE html>
@@ -31,7 +32,7 @@
                     <li><a href="../Admin/Discounts.jsp"><i class="fa fa-tasks"></i><span>Discounts</span></a></li>
                 </ul>
                 <div class="logout-btn">
-                    <a href="../../index.jsp"><i class="fa fa-sign-out"></i><span>Logout</span></a>
+                    <a href="<%= request.getContextPath() %>/LogoutServlet"><i class="fa fa-sign-out"></i><span>Logout</span></a>
                 </div>
             </div>
         </nav>
@@ -126,12 +127,8 @@
                     </thead>
                     <tbody>
                         <% 
-                            String DB_URL = "jdbc:mysql://localhost:3306/cab_booking";
-                            String DB_USER = "root";
-                            String DB_PASSWORD = "Thiwanka122/";
-                            
-                            Class.forName("com.mysql.cj.jdbc.Driver");
-                            Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                            Connection conn = null;
+                            conn = DBConnection.getConnection();
                             
                             String query = "SELECT id, startLocation, endLocation, distance_amt, time_taken, total_price FROM distance";
                             PreparedStatement stmt = conn.prepareStatement(query);
@@ -245,19 +242,17 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".edit-btn").forEach(button => {
-        button.addEventListener("click", function () {
-            // Set the values in the modal inputs using the correct IDs
-            document.getElementById("priceId").value = this.getAttribute("data-id");
-            document.getElementById("startLocEdit").value = this.getAttribute("data-startloc");
-            document.getElementById("endLocEdit").value = this.getAttribute("data-endloc");
-            document.getElementById("distanceNoEdit").value = this.getAttribute("data-distance");
-            document.getElementById("timeTakenEdit").value = this.getAttribute("data-time");
-            document.getElementById("disPriceEdit").value = this.getAttribute("data-price");
+            document.querySelectorAll(".edit-btn").forEach(button => {
+                button.addEventListener("click", function () {
+                    document.getElementById("priceId").value = this.getAttribute("data-id");
+                    document.getElementById("startLocEdit").value = this.getAttribute("data-startloc");
+                    document.getElementById("endLocEdit").value = this.getAttribute("data-endloc");
+                    document.getElementById("distanceNoEdit").value = this.getAttribute("data-distance");
+                    document.getElementById("timeTakenEdit").value = this.getAttribute("data-time");
+                    document.getElementById("disPriceEdit").value = this.getAttribute("data-price");
+                });
+            });
         });
-    });
-});
-
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "UpdateAvailabilityServlet", urlPatterns = {"/UpdateAvailabilityServlet"})
-public class UpdateAvailabilityServlet extends HttpServlet {
+@WebServlet(name = "UpdateBookingStatusServlet", urlPatterns = {"/UpdateBookingStatusServlet"})
+public class UpdateBookingStatusServlet extends HttpServlet {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/cab_booking";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "Thiwanka122/";
@@ -29,26 +29,27 @@ public class UpdateAvailabilityServlet extends HttpServlet {
             return;
         }
 
-        String availability = request.getParameter("availability");
+        String status = request.getParameter("status");
+        int bookingId = Integer.parseInt(request.getParameter("bookingId"));
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-             PreparedStatement stmt = conn.prepareStatement("UPDATE drivers SET availability = ? WHERE email = ?")) {
+             PreparedStatement stmt = conn.prepareStatement("UPDATE booking SET status = ? WHERE id = ?")) {
             
             Class.forName("com.mysql.cj.jdbc.Driver");
             
-            stmt.setString(1, availability);
-            stmt.setString(2, userEmail);
+            stmt.setString(1, status);
+            stmt.setInt(2, bookingId);
 
             int rowsUpdated = stmt.executeUpdate();
 
             if (rowsUpdated > 0) {
-                response.sendRedirect("accounts/Driver/Driver.jsp?success=Availability updated!");
+                response.sendRedirect("accounts/Driver/Bookings.jsp?success=Booking status updated!");
             } else {
-                response.sendRedirect("accounts/Driver/Driver.jsp?error=Update failed!");
+                response.sendRedirect("accounts/Driver/Bookings.jsp?error=Update failed!");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("accounts/Driver/Driver.jsp?error=Database error!");
+            response.sendRedirect("accounts/Driver/Bookings.jsp?error=Database error!");
         }
     }
 }

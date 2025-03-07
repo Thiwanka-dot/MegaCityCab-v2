@@ -2,7 +2,6 @@ package Servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.security.MessageDigest;
@@ -17,9 +16,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/cab_booking";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "Thiwanka122/";
+    Connection conn = null;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -29,11 +26,9 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            conn = DBConnection.getConnection();
             String hashedPassword = hashPassword(password);
 
-            // Check Admin Table
             if (isValidUser(conn, email, hashedPassword, "admin")) {
                 HttpSession session = request.getSession();
                 session.setAttribute("email", email);
@@ -42,7 +37,6 @@ public class LoginServlet extends HttpServlet {
                 return;
             }
 
-            // Check Customer Table
             if (isValidUser(conn, email, hashedPassword, "customers")) {
                 HttpSession session = request.getSession();
                 session.setAttribute("email", email);
@@ -51,7 +45,6 @@ public class LoginServlet extends HttpServlet {
                 return;
             }
 
-            // Check Driver Table
             if (isValidUser(conn, email, hashedPassword, "drivers")) {
                 HttpSession session = request.getSession();
                 session.setAttribute("email", email);
@@ -60,7 +53,6 @@ public class LoginServlet extends HttpServlet {
                 return;
             }
 
-            // If no match, redirect to login with error message
             response.sendRedirect(request.getContextPath() + "/Form/Login.jsp?error=Incorrect login! Try again!");
 
             conn.close();

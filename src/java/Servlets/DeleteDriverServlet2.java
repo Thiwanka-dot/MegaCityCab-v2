@@ -9,26 +9,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "DeleteCustomerServlet", urlPatterns = {"/DeleteCustomerServlet"})
-public class DeleteCustomerServlet extends HttpServlet {
+@WebServlet(name = "DeleteDriverServlet2", urlPatterns = {"/DeleteDriverServlet2"})
+public class DeleteDriverServlet2 extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String customerIDParam = request.getParameter("customerID");
+        String driverIDParam = request.getParameter("driverID");
 
-        if (customerIDParam == null || customerIDParam.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/accounts/Admin/CustomerDet.jsp?error=MissingCustomerID");
+        if (driverIDParam == null || driverIDParam.isEmpty()) {
+            response.sendRedirect(request.getContextPath() + "/accounts/Driver/Driver.jsp?error=MissingDriverID");
             return;
         }
 
-        int customerID = Integer.parseInt(customerIDParam);
+        int driverID = Integer.parseInt(driverIDParam);
 
         try {
             Connection conn = null;
             conn = DBConnection.getConnection();
-            String query = "DELETE FROM customers WHERE id=?";
+            String query = "DELETE FROM drivers WHERE id=?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, customerID);
+            stmt.setInt(1, driverID);
             stmt.executeUpdate();
 
             stmt.close();
@@ -37,6 +37,6 @@ public class DeleteCustomerServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        response.sendRedirect(request.getContextPath() + "/accounts/Admin/CustomerDet.jsp");
+        response.sendRedirect(request.getContextPath() + "/index.html");
     }
 }

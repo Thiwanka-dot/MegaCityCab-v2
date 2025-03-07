@@ -1,24 +1,18 @@
-<%@ page import="java.sql.*" %>
-<%@ page import="javax.servlet.http.HttpSession" %>
+<%@page import="java.sql.*" %>
+<%@page import="javax.servlet.http.HttpSession" %>
+<%@page import="Servlets.DBConnection"%>
+
 <%
-    // Get session and check if user is logged in
     HttpSession userSession = request.getSession(false);
     String userEmail = (userSession != null) ? (String) userSession.getAttribute("email") : null;
 
     if (userEmail == null) {
-        response.sendRedirect("../../Form/Login.jsp"); // Redirect to login if not logged in
+        response.sendRedirect("../../Form/Login.jsp");
         return;
     }
+    Connection conn = null;
+    conn = DBConnection.getConnection();
 
-    // Database Connection
-    String dbURL = "jdbc:mysql://localhost:3306/cab_booking";
-    String dbUser = "root";
-    String dbPassword = "Thiwanka122/";
-
-    Class.forName("com.mysql.cj.jdbc.Driver");
-    Connection conn = DriverManager.getConnection(dbURL, dbUser, dbPassword);
-
-    // Fetch user details
     String query = "SELECT * FROM customers WHERE email = ?";
     PreparedStatement stmt = conn.prepareStatement(query);
     stmt.setString(1, userEmail);
@@ -61,30 +55,12 @@
             <hr>
             <div class="nav-con">
                 <ul>
-                    <li>
-                        <a href="../Customer/Customer.jsp" class="active">
-                            <i class="fa fa-home"></i>
-                            <span>Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../Customer/BookCar.jsp">
-                            <i class="fa fa-tasks"></i>
-                            <span>Booking Overview</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../Customer/DriverTransfer.jsp">
-                            <i class="fa fa-tasks"></i>
-                            <span>Become a Driver</span>
-                        </a>
-                    </li>
+                    <li><a href="../Customer/Customer.jsp" class="active"><i class="fa fa-home"></i><span>Home</span></a></li>
+                    <li><a href="../Customer/BookCar.jsp"><i class="fa fa-tasks"></i><span>Booking Overview</span></a></li>
+                    <li><a href="../Customer/ViewBookings.jsp"><i class="fa fa-tasks"></i><span>View Bookings</span></a></li>
                 </ul>
                 <div class="logout-btn">
-                    <a href="../../index.html">
-                        <i class="fa fa-sign-out"></i>
-                        <span>Logout</span>
-                    </a>
+                    <a href="<%= request.getContextPath() %>/LogoutServlet"><i class="fa fa-sign-out"></i><span>Logout</span></a>
                 </div>
             </div>
         </nav>
@@ -157,7 +133,10 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-danger" id="confirmDelete">Confirm Deletion</button>
+                            <form action="<%= request.getContextPath() %>/DeleteCustomerServlet2" method="post">
+                                <input type="hidden" name="customerID" value="<%= userId %>">
+                                <button type="submit" class="btn btn-danger">Confirm Deletion</button>
+                            </form>
                         </div>
                     </div>
                 </div>
