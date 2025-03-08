@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mega City Cab</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Mega City Cab</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="#Home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#About">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#Services">Services</a></li>
+                </ul>
+                 <button class="btn" type="button"><a href="./Form/Login.jsp">Login</a></button>
+            </div>
+        </div>
+    </nav>
+    <section>
+        <div class="main-con" id="Home">
+            <img src="./Img/Main-img.jpg" class="Main-img" alt="...">
+            <div class="title">
+                <div class="title-con">
+                    <h1 style="font-family: Montserrat, serif;">Mega City Cab</h1>
+                    <h3>Welcome to our Cab Booking service!</h3>
+                    <p><em>Feel free to book a cab to arrive to your location</em></p>
+                    <button class="btn" type="button"><a href="./Form/Login.jsp">Make a Booking</a></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="container2" id="About">
+            <h2 class="pb-3">Who are we?</h2>
+            <div class="row">                
+                <div class="col about-txt">
+                    <p>
+                        Mega City Cab, a popular cab service in Colombo City, is moving from a manual booking system 
+                        to a computerized online vehicle booking system. This transition aims to enhance efficiency, 
+                        improve customer service, and streamline operations for managing bookings and transactions. 
+                        By adopting this digital approach, Mega City Cab seeks to better serve its customers and meet 
+                        the growing demand for reliable transportation services.                        
+                    </p>
+                </div>
+                <div class="col about-img"><img src="./Img/Img1.jpg" alt=""></div>
+            </div>   
+    </section>
+    <section class="container2 services text-center" id="Services">
+            <h2 class="pb-3">Our Services</h2>
+            <div class="row">
+                <div class="col">
+                    <p>Ride Booking</p>    
+                </div>
+                <div class="col">
+                    <p>Fare Estimation</p>
+                </div>
+                <div class="col">
+                    <p>Secure Payment Processing</p>
+                </div>
+                <div class="col">
+                    <p>Discounts</p>
+                </div>
+                <div class="col">
+                    <p>Trip History</p>
+                </div>
+                <div class="col">
+                    <p>Account Management</p>
+                </div>
+            </div>
+    </section>
+    <button type="button" class="help position-fixed bottom-0 end-0 m-3" data-bs-toggle="modal" data-bs-target="#helpModal">
+    ?
+    </button>
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpModalLabel">User Guidelines</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li>Click "Make a Booking" to book a ride.</li>
+                        <li>Use the navigation bar to explore services.</li>
+                        <li>Contact us for any queries or assistance.</li>
+                        <li>Ensure correct details before confirming a booking.</li>
+                        <li>Review the fare estimation before proceeding with the booking.</li>
+                        <li>Check your email for booking confirmations and updates.</li>
+                        <li>For secure payments, use the provided payment options only.</li>
+                        <li>Keep your account information private and secure.</li>
+                        <li>Report any issues or feedback through our contact page.</li>
+                        <li>Follow local traffic regulations and safety measures during your ride.</li>
+                        <li>For emergencies, contact local authorities immediately.</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="pt-2 pb-3 text-center">
+        <div class="foot-row">
+            <div class="foot-con">
+                <h3>Mega City Cab</h3>
+                <p>Thank you for visiting our website!<br>Make sure to book a ride for your trips!</p>
+            </div>
+            <div class="foot-con">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#Home">Home</a></li>
+                    <li><a href="#About">About</a></li>
+                    <li><a href="#Services">Services</a></li>
+                </ul>
+            </div>
+            <div class="foot-con">
+                <h3>Contact Us</h3>
+                <p>Email: qewcq3s@gmail.com <br> Phone: 011 111 1111</p>
+            </div>
+        </div>
+        <hr>
+        <p>Copyright &copy; 2025. All Rights Reserved</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    background: #000;
+}
+
+.help {
+    padding: 0.5rem 1rem;
+    font-weight: 800;
+    border-radius: 50%;
+    border: 2px solid black;
+    background: yellow;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+a{
+    text-decoration: none;
+}
+
+p{
+    margin-bottom: 0;
+}
+
+.resBtn{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.resBtn .formBtn{
+    background: yellow;
+    border: 1px solid yellow;
+    font-weight: 600;
+    width: 100%;
+    padding: 0.5rem;
+    
+}
+
+.resBtn .btn:hover{
+    background: #000;
+    color: yellow;
+}
+
+nav{
+    background: yellow;
+}
+
+nav .btn{
+    background: #000;
+    border: 2px solid #000;
+    font-weight: 600;
+}
+
+nav .btn a{
+    color: yellow;
+}
+
+nav .btn:hover{
+    border: 2px solid #000;
+}
+
+nav .btn a:hover{
+    color: #000;
+}
+
+section{
+    padding: 2rem 5rem;
+}
+
+.main-con{
+    position: relative;
+}
+
+.Main-img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 15px;
+    display: block;
+}
+
+.main-con .btn,
+.foot-con .btn{
+    background: yellow;
+    border: 2px solid yellow;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: white;
+}
+
+.main-con .btn:hover,
+.foot-con .btn:hover{
+    background: transparent;
+    color: yellow;
+    border: 2px solid yellow;
+}
+
+.title{
+    opacity: 1;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    background: #00000085;
+    border-radius: 15px;
+}
+
+.title-con{
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+section .btn a{
+    color: black;
+}
+
+section .btn a:hover{
+    color: yellow;
+}
+
+.title-con h1{
+    font-size: 4.8rem;
+    color: yellow;
+}
+
+.about-img img{
+    width: 100%;
+    height: auto;
+    border: 5px solid #000;
+    border-radius: 15px;
+}
+
+.services .row{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+}
+
+.services .col{
+    border: 2px solid #000;
+    padding: 1rem;
+    background: yellow;
+    font-weight: 600;
+}
+
+footer{
+    background: #000;
+    color: yellow;
+}
+
+footer .foot-row{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    padding: 2rem 0;
+}
+
+footer ul{
+    list-style: none;
+    padding: 0;
+}
+
+footer li a{
+    text-decoration: none;
+    color: yellow;    
+}
+
+/*Login*/
+
+.form-contain{
+    background: white;
+    color: yellow;
+    padding: 4rem 2rem;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+.form-con{
+    width: 100%;
+    height: fit-content;
+    border: 2px solid yellow;
+    max-width: 500px;
+    padding: 1rem;
+    background: #000;
+    
+
+}
+
+
+.form-divide{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+form h1{
+    text-align: center;
+}
+
+form input,
+form textarea{
+    width: 100%;
+    padding: 5px;
+    border: none;
+    margin: 4px 0;
+}
+
+form .btn{
+    background: yellow;
+    font-weight: 600;
+    border: 2px solid yellow;
+    margin-top: 4px;
+}
+
+form .btn:hover{
+    border: 2px solid yellow;
+}
+
+@media(max-width: 800px){
+    section{
+        padding: 1rem 3rem;
+    }
+
+    .title-con h1{
+        font-size: 2rem;
+    }
+
+    .title-con h3{
+        font-size: 1.2rem;
+    }
+
+    .form-divide{
+        display: block;
+    }
+
+    .footer .foot-row{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
