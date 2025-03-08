@@ -31,6 +31,18 @@ body{
     gap: 10px;
 }
 
+.help {
+    padding: 0.5rem 1rem;
+    font-weight: 800;
+    border-radius: 50%;
+    border: 2px solid black;
+    background: yellow;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
 nav {
     background: #000;
     height: 100vh;

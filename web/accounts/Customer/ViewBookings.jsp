@@ -96,7 +96,32 @@
             </div>
             <div class="p-2"></div>
         </main>
-    </div>    
+    </div>
+    <button type="button" class="help position-fixed bottom-0 end-0 m-3" data-bs-toggle="modal" data-bs-target="#helpModal">
+    ?
+    </button>
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpModalLabel">User Guidelines</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li>Use the table to view all booking details at a glance.</li>
+                        <li>Click "Cancel" to remove a booking that is currently pending.</li>
+                        <li>Ensure that all booking information is accurate before making changes.</li>
+                        <li>Contact us for any queries or assistance regarding bookings.</li>
+                        <li>Always log out securely when you finish your session.</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -7,10 +7,16 @@
     background: #000;
 }
 
-.help{
-    padding: 1rem;
-    border: 2px solid yellow;
+.help {
+    padding: 0.5rem 1rem;
+    font-weight: 800;
     border-radius: 50%;
+    border: 2px solid black;
+    background: yellow;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
 }
 
 a{
@@ -118,8 +124,12 @@ section{
     text-align: center;
 }
 
-sectio .btn a{
-    color: white;
+section .btn a{
+    color: black;
+}
+
+section .btn a:hover{
+    color: yellow;
 }
 
 .title-con h1{

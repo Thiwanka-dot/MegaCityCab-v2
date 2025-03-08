@@ -196,6 +196,34 @@
             <div class="p-2"></div>
         </main>
     </div>
+    <button type="button" class="help position-fixed bottom-0 end-0 m-3" data-bs-toggle="modal" data-bs-target="#helpModal">
+    ?
+    </button>
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpModalLabel">User Guidelines</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li>Ensure your contact information is accurate for better service.</li>
+                        <li>Select a start and end location for your cab booking.</li>
+                        <li>Choose an available driver from the list provided.</li>
+                        <li>Enter your current address for pickup.</li>
+                        <li>Review the travel price before confirming your booking.</li>
+                        <li>Use the "Confirm Booking" button to finalize your ride.</li>
+                        <li>Check your email for booking confirmations and updates.</li>
+                        <li>Contact us for any queries or assistance regarding your bookings.</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function() {
