@@ -24,11 +24,11 @@
                 <% } %>
                 <div class="form-item">
                     <label for="email">Enter Email</label><br>
-                    <input type="email" name="email" id="email" placeholder="Enter Email" required autocomplete="off">
+                    <input type="email" name="email" id="email" placeholder="Enter Email" autocomplete="off">
                 </div>
                 <div class="form-item">
                     <label for="password">Enter Password</label><br>
-                    <input type="password" name="password" id="password" placeholder="Enter Password" required>
+                    <input type="password" name="password" id="password" placeholder="Enter Password">
                 </div>                
                 <button type="submit" class="btn col-md-12 mt-2 mb-2">Login</button>
                 <div class="link">

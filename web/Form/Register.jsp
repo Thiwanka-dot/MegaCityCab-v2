@@ -18,10 +18,7 @@
                 <!-- Customer Form -->
                 <form id="registerForm" action="../CustomerRegisterServlet" method="post" onsubmit="return validateForm('customer')">
                     <h2 class="pb-2 pt-2 text-center">Customer Form</h2>               
-                    <div id="emptyErrorCustomer" class="alert alert-warning alert-dismissible fade show d-none" role="alert">
-                        <strong>Warning!</strong> Please fill in all the fields.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
+                    <div id="errorMessageCustomer" class="alert alert-danger d-none" role="alert"></div> 
                     <% if (request.getParameter("error") != null) { %>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>Error!</strong> <%= request.getParameter("error") %>
@@ -31,37 +28,37 @@
                     <div class="form-divide">
                         <div class="form-item">
                             <label for="firstName">Enter First Name</label><br>
-                            <input type="text" name="firstName" id="firstName" placeholder="Enter First Name" required>
+                            <input type="text" name="firstName" id="firstName" placeholder="Enter First Name">
                         </div>
                         <div class="form-item">
                             <label for="lastName">Enter Last Name</label><br>
-                            <input type="text" name="lastName" id="lastName" placeholder="Enter Last Name" required>
+                            <input type="text" name="lastName" id="lastName" placeholder="Enter Last Name">
                         </div>
                     </div>
                     <div class="form-item">
                         <label for="email">Enter Email</label><br>
-                        <input type="email" name="email" id="email" placeholder="Enter Email" required>
+                        <input type="email" name="email" id="email" placeholder="Enter Email">
                     </div>
                     <div class="form-item">
                         <label for="nic">Enter NIC</label><br>
-                        <input type="text" name="nic" id="nic" placeholder="Enter NIC" required>
+                        <input type="text" name="nic" id="nic" placeholder="Enter NIC">
                     </div>
                     <div class="form-item">
                         <label for="phone">Enter Phone No</label><br>
-                        <input type="text" name="phone" id="phone" placeholder="Enter Phone No" required>
+                        <input type="text" name="phone" id="phone" placeholder="Enter Phone No">
                     </div>
                     <div class="form-item">
                         <label for="address">Enter Address</label><br>
-                        <textarea name="address" id="address" placeholder="Enter Address" required></textarea>
+                        <textarea name="address" id="address" placeholder="Enter Address"></textarea>
                     </div>
                     <div class="form-divide">
                         <div class="form-item">
                             <label for="password">Enter Password</label><br>
-                            <input type="password" name="password" id="password" placeholder="Enter Password" required>
+                            <input type="password" name="password" id="password" placeholder="Enter Password">
                         </div>
                         <div class="form-item">
                             <label for="confirmPassword">Confirm Password</label><br>
-                            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required>
+                            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
                         </div>
                     </div>
                     <!-- Error message div (for JavaScript validation) -->
@@ -74,10 +71,7 @@
                 <!-- Driver Form -->
                 <form id="driverForm" action="../DriverRegisterServlet" method="post" class="d-none" onsubmit="return validateForm('driver')">
                     <h2 class="pb-2 pt-2 text-center">Driver Form</h2>
-                    <div id="emptyErrorDriver" class="alert alert-warning alert-dismissible fade show d-none" role="alert">
-                        <strong>Warning!</strong> Please fill in all the fields.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
+                    <div id="errorMessageDriver" class="alert alert-danger d-none" role="alert"></div> 
                     <% if (request.getParameter("error") != null) { %>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>Error!</strong> <%= request.getParameter("error") %>
@@ -87,48 +81,47 @@
                     <div class="form-divide">
                         <div class="form-item">
                             <label for="firstNameDriver">Enter First Name</label><br>
-                            <input type="text" name="firstName" id="firstNameDriver" placeholder="Enter First Name" required>
+                            <input type="text" name="firstName" id="firstNameDriver" placeholder="Enter First Name">
                         </div>
                         <div class="form-item">
                             <label for="lastNameDriver">Enter Last Name</label><br>
-                            <input type="text" name="lastName" id="lastNameDriver" placeholder="Enter Last Name" required>
+                            <input type="text" name="lastName" id="lastNameDriver" placeholder="Enter Last Name">
                         </div>
                     </div>
                     <div class="form-item">
                         <label for="emailDriver">Enter Email</label><br>
-                        <input type="email" name="email" id="emailDriver" placeholder="Enter Email" required>
+                        <input type="email" name="email" id="emailDriver" placeholder="Enter Email">
                     </div>
                     <div class="form-divide">
                         <div class="form-item">
                             <label for="phoneDriver">Enter Phone No</label><br>
-                            <input type="text" name="phone" id="phoneDriver" placeholder="Enter Phone No" required>
+                            <input type="text" name="phone" id="phoneDriver" placeholder="Enter Phone No">
                         </div>
                         <div class="form-item">
                             <label for="license">Enter License No</label><br>
-                            <input type="text" name="license" id="license" placeholder="Enter License No" required>
+                            <input type="text" name="license" id="license" placeholder="Enter License No">
                         </div>
                     </div>
                     <div class="form-divide">
                         <div class="form-item">
                             <label for="vehicleNo">Vehicle No</label><br>
-                            <input type="text" name="vehicleNo" id="vehicleNo" placeholder="Enter Vehicle No" required>
+                            <input type="text" name="vehicleNo" id="vehicleNo" placeholder="Enter Vehicle No">
                         </div>
                         <div class="form-item">
                             <label for="vehicleModel">Vehicle Model</label><br>
-                            <input type="text" name="vehicleModel" id="vehicleModel" placeholder="Enter Vehicle Model" required>
+                            <input type="text" name="vehicleModel" id="vehicleModel" placeholder="Enter Vehicle Model">
                         </div>
                     </div>
                     <div class="form-divide">
                         <div class="form-item">
                             <label for="passwordDriver">Enter Password</label><br>
-                            <input type="password" name="password" id="passwordDriver" placeholder="Enter Password" required>
+                            <input type="password" name="password" id="passwordDriver" placeholder="Enter Password">
                         </div>
                         <div class="form-item">
                             <label for="confirmPasswordDriver">Confirm Password</label><br>
-                            <input type="password" name="confirmPassword" id="confirmPasswordDriver" placeholder="Confirm Password" required>
+                            <input type="password" name="confirmPassword" id="confirmPasswordDriver" placeholder="Confirm Password">
                         </div>
                     </div>
-                    <div id="errorMessageDriver" class="alert alert-danger d-none" role="alert"></div> 
                     <button type="submit" class="btn col-md-12 mt-2 mb-2">Register</button>
                     <div class="link">
                         <p>Already have an account? <a href="../Form/Login.jsp">Click Here!</a></p>
