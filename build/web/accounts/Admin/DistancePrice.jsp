@@ -130,7 +130,7 @@
                             Connection conn = null;
                             conn = DBConnection.getConnection();
                             
-                            String query = "SELECT id, startLocation, endLocation, distance_amt, time_taken, total_price FROM distance";
+                            String query = "SELECT id, startLocation, endLocation, distance_amt, time_taken, total_price FROM distance ORDER BY id DESC";
                             PreparedStatement stmt = conn.prepareStatement(query);
                             ResultSet rs = stmt.executeQuery();
                             while (rs.next()) {

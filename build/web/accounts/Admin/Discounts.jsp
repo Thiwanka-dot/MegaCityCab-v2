@@ -81,7 +81,7 @@
                         Connection conn = null;
                         conn = DBConnection.getConnection();
                         
-                        String query = "SELECT id, discountCode, discountPrice FROM discounts";
+                        String query = "SELECT id, discountCode, discountPrice FROM discounts ORDER BY id DESC";
                         java.sql.Statement stmt = conn.createStatement();
                         ResultSet rs = stmt.executeQuery(query);
 

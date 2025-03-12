@@ -55,7 +55,8 @@
 
                         String query = "SELECT b.id, b.startLocation, b.endLocation, d.first_name, d.last_name, b.vehicle_no, b.driverContact, b.price, b.paymentMethod, b.status " +
                                        "FROM booking b " +
-                                       "JOIN drivers d ON b.driver_id = d.id";
+                                       "JOIN drivers d ON b.driver_id = d.id " + 
+                                        "ORDER BY b.id DESC";
                         PreparedStatement stmt = conn.prepareStatement(query);
                         ResultSet rs = stmt.executeQuery();
 

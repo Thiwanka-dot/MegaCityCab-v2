@@ -28,7 +28,8 @@
     String bookingQuery = "SELECT b.id, b.startLocation, b.endLocation, b.userName, b.contact, b.address, b.price, b.paymentMethod, b.status " +
                           "FROM booking b " +
                           "JOIN drivers d ON b.driver_id = d.id " +
-                          "WHERE d.id = ?";
+                          "WHERE d.id = ?" +
+                          "ORDER BY b.id DESC";
     PreparedStatement bookingStmt = conn.prepareStatement(bookingQuery);
     bookingStmt.setString(1, userId);
     ResultSet bookingRs = bookingStmt.executeQuery();
@@ -98,22 +99,12 @@
                             <td><%= bookingRs.getDouble("price") %> LKR</td>
                             <td><%= bookingRs.getString("paymentMethod") %></td>
                             <td>
-                                <%
-                                    if ("Confirmed".equals(currentStatus)) {
-                                %>
-                                    <button type="button" class="btn btn-outline-primary">Status: Confirmed</button>
-                                <%
-                                    } else if ("Cancelled".equals(currentStatus) || currentStatus == null) {
-                                %>
-                                    <button type="button" class="btn btn-success" id="confirmBtn_<%= bookingId %>" onclick="updateStatus('<%= bookingId %>', 'Confirmed', this)">Confirm</button>
-                                    <button type="button" class="btn btn-danger" id="cancelBtn_<%= bookingId %>" onclick="updateStatus('<%= bookingId %>', 'Cancelled', this)">Withdraw</button>
-                                <%
-                                    } else {
-                                %>
-                                    <button type="button" class="btn btn-outline-primary"><%= currentStatus %></button>
-                                <%
-                                    }
-                                %>
+                                 <% if ("Pending".equalsIgnoreCase(currentStatus)) { %>
+                            <button class="btn btn-success" onclick="updateStatus('<%= bookingId %>', 'Confirmed', this)">Confirm</button>
+                            <button class="btn btn-danger" onclick="updateStatus('<%= bookingId %>', 'Cancelled', this)">Withdraw</button>
+                        <% } else { %>
+                            <span class="btn btn btn-outline-primary"><%= currentStatus %></span>
+                        <% } %>
                             </td>
                         </tr>
 <%

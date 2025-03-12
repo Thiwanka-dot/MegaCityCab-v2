@@ -57,7 +57,7 @@
                         Connection conn = null;
                         conn = DBConnection.getConnection();
 
-                        String query = "SELECT id, first_name, last_name, email, phone, license_no, vehicle_no, vehicle_model, availability FROM drivers";
+                        String query = "SELECT id, first_name, last_name, email, phone, license_no, vehicle_no, vehicle_model, availability FROM drivers ORDER BY id DESC";
                         PreparedStatement stmt = conn.prepareStatement(query);
                         ResultSet rs = stmt.executeQuery();
 
